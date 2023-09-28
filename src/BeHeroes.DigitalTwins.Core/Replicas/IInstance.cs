@@ -1,7 +1,7 @@
 using BeHeroes.CodeOps.Abstractions.Commands;
 using BeHeroes.CodeOps.Abstractions.Identity.Did;
 
-namespace BeHeroes.DigitalTwins.Core.Twins
+namespace BeHeroes.DigitalTwins.Core.Replicas
 {
     public interface IInstance : IActor, ICommandHandler<IInstanceRequest, IInstanceResponse>
     {
