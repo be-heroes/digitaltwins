@@ -1,4 +1,4 @@
-namespace BeHeroes.DigitalTwins.Core.Interfaces
+namespace BeHeroes.DigitalTwins.Core.Twins
 {
     public interface IInstanceResponse
     {

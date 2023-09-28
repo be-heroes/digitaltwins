@@ -1,6 +1,5 @@
 using BeHeroes.CodeOps.Abstractions.Commands;
 using BeHeroes.CodeOps.Abstractions.Events;
-using BeHeroes.DigitalTwins.Core.Interfaces;
 
 namespace BeHeroes.DigitalTwins.Core.Twins
 {
