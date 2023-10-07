@@ -6,10 +6,10 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
     public interface IStateSequencer
     {
         /// <summary>
-        /// Gets the current seed in the sequence.
+        /// Gets the pending seed for sequence.
         /// </summary>
-        /// <returns>The current seed.</returns>
-        ulong CurrentSeed();
+        /// <returns>The pending seed.</returns>
+        ulong? PendingSeed();
         
         /// <summary>
         /// Gets the next seed in the sequence.

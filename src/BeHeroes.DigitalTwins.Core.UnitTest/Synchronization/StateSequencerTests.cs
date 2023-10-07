@@ -11,10 +11,14 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
             var sequencer = new StateSequencer();
 
             // Act
-            var seed = sequencer.CurrentSeed();
+            var pending1 = sequencer.PendingSeed();
+            var seed1 = sequencer.NextSeed();
+            var pending2 = sequencer.PendingSeed();
 
             // Assert
-            Assert.Equal(0ul, seed);
+            Assert.Null(pending1);
+            Assert.Equal(0ul, seed1);
+            Assert.Equal(0ul, pending2);
         }
 
         [Fact]
@@ -24,12 +28,18 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
             var sequencer = new StateSequencer();
 
             // Act
+            var pending1 = sequencer.PendingSeed();
             var seed1 = sequencer.NextSeed();
+            var pending2 = sequencer.PendingSeed();
             var seed2 = sequencer.NextSeed();
+            var pending3 = sequencer.PendingSeed();
 
             // Assert
-            Assert.Equal(1ul, seed1);
-            Assert.Equal(2ul, seed2);
+            Assert.Null(pending1);
+            Assert.Equal(0ul, seed1);
+            Assert.Equal(0ul, pending2);
+            Assert.Equal(1ul, seed2);
+            Assert.Equal(1ul, pending3);
         }
 
         [Fact]
@@ -43,7 +53,9 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
             sequencer.Reset();
 
             // Assert
-            Assert.Equal(0ul, sequencer.CurrentSeed());
+            Assert.Null(sequencer.PendingSeed());
+            Assert.Equal(0ul, sequencer.NextSeed());
+            Assert.Equal(0ul, sequencer.PendingSeed());
         }
     }
 }
