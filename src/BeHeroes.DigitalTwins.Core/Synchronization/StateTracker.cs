@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
-    /// Represents a state tracker that keeps track of a collection of states.
+    /// Represents a state tracker that keeps track of a collection of unconfirmed state edits.
     /// </summary>
     public sealed class StateTracker : IStateTracker
     {
