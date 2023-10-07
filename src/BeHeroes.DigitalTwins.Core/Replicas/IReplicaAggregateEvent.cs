@@ -2,7 +2,7 @@
 
 namespace BeHeroes.DigitalTwins.Core.Replicas
 {
-    public interface IAggregateEvent : IIntegrationEvent
+    public interface IReplicaAggregateEvent : IIntegrationEvent
     {
     }
 }

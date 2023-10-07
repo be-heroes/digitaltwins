@@ -5,7 +5,7 @@ using BeHeroes.CodeOps.Abstractions.Identity.Did;
 
 namespace BeHeroes.DigitalTwins.Core.Replicas
 {
-    public interface IAggregateReplica : IActor, IAggregateRoot, IEventHandler<IAggregateEvent>, ICommandHandler<IReplicaRequest, IReplicaResponse>
+    public interface IReplicaAggregate : IActor, IAggregateRoot, IEventHandler<IReplicaAggregateEvent>, ICommandHandler<IReplicaRequest, IReplicaResponse>
     {
         ValueTask<IReplica>? GetReplica(DecentralizedIdentifier identifier);
 
