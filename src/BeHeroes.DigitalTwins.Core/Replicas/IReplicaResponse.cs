@@ -1,6 +1,6 @@
 namespace BeHeroes.DigitalTwins.Core.Replicas
 {
-    public interface IInstanceResponse
+    public interface IReplicaResponse
     {
     }
 }

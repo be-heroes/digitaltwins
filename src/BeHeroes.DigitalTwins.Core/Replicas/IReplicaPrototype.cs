@@ -3,7 +3,7 @@ using BeHeroes.DigitalTwins.Core.State;
 
 namespace BeHeroes.DigitalTwins.Core.Replicas
 {
-    public interface IPrototype<T> where T : IInstance
+    public interface IReplicaPrototype<T> where T : IReplica
     {
         ValueTask<T> Create(IStateMachine stateMachine, DecentralizedIdentifier identifier);
     }
