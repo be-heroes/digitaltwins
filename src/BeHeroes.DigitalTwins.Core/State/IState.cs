@@ -1,15 +1,33 @@
 ﻿namespace BeHeroes.DigitalTwins.Core.State
 {
-    public interface IState : IDisposable, IAsyncDisposable
+    /// <summary>
+    /// Represents the state of a digital twin.
+    /// </summary>
+    public interface IState
     {
-        IEnumerable<KeyValuePair<string, string>> Attributes { get; init; }
+        /// <summary>
+        /// Gets or sets the data of the digital twin.
+        /// </summary>
+        IEnumerable<KeyValuePair<string, object>> Data { get; init; }
 
-        IEnumerable<KeyValuePair<string, string>> PreviousAttributes { get; }
+        /// <summary>
+        /// Gets the previous data of the digital twin.
+        /// </summary>
+        IEnumerable<KeyValuePair<string, object>> PreviousData { get; }
 
-        IEnumerable<KeyValuePair<string, string>> Labels { get; init; }
+        /// <summary>
+        /// Gets or sets the metadata of the digital twin.
+        /// </summary>
+        IEnumerable<KeyValuePair<string, object>> Metadata { get; init; }
 
-        IEnumerable<KeyValuePair<string, string>> PreviousLabels { get; }
+        /// <summary>
+        /// Gets the previous metadata of the digital twin.
+        /// </summary>
+        IEnumerable<KeyValuePair<string, object>> PreviousMetadata { get; }
 
+        /// <summary>
+        /// Gets or sets the version of the digital twin.
+        /// </summary>
         int Version { get; init; }
     }
 }

@@ -2,23 +2,54 @@
 
 namespace BeHeroes.DigitalTwins.Core
 {
+    /// <summary>
+    /// Represents the status of an actor.
+    /// </summary>
     public class ActorStatus : EntityEnumeration
     {
+        /// <summary>
+        /// Represents an available actor status.
+        /// </summary>
         public static ActorStatus Available = new ActorStatus(1, nameof(Available).ToLowerInvariant());
+
+        /// <summary>
+        /// Represents an actor that is currently unavailable.
+        /// </summary>
         public static ActorStatus Unavailable = new ActorStatus(2, nameof(Unavailable).ToLowerInvariant());
+
+        /// <summary>
+        /// Represents an unknown actor status.
+        /// </summary>
         public static ActorStatus Unknown = new ActorStatus(4, nameof(Unknown).ToLowerInvariant());
 
+        /// <summary>
+        /// Represents the status of an actor in the digital twin system.
+        /// </summary>
         protected ActorStatus()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActorStatus"/> class with the specified ID and name.
+        /// </summary>
+        /// <param name="id">The ID of the actor status.</param>
+        /// <param name="name">The name of the actor status.</param>
         public ActorStatus(int id, string name)
             : base(id, name)
         {
         }
 
+        /// <summary>
+        /// Returns a list of all available actor statuses.
+        /// </summary>
         public static IEnumerable<ActorStatus> List() => new[] { Available, Unavailable, Unknown };
 
+        /// <summary>
+        /// Returns the actor status with the specified name.
+        /// </summary>
+        /// <param name="name">The name of the actor status to retrieve.</param>
+        /// <returns>The actor status with the specified name.</returns>
+        /// <exception cref="ArgumentException">Thrown when no actor status with the specified name is found.</exception>
         public static ActorStatus FromName(string name)
         {
             var state = List()
@@ -32,6 +63,12 @@ namespace BeHeroes.DigitalTwins.Core
             return state;
         }
 
+        /// <summary>
+        /// Returns the actor status with the specified ID.
+        /// </summary>
+        /// <param name="id">The ID of the actor status to retrieve.</param>
+        /// <returns>The actor status with the specified ID.</returns>
+        /// <exception cref="ArgumentException">Thrown when no actor status with the specified ID is found.</exception>
         public static ActorStatus From(int id)
         {
             var state = List().SingleOrDefault(s => s.Id == id);
