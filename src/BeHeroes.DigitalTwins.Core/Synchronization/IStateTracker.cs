@@ -1,6 +1,6 @@
 using System.Collections.Immutable;
 
-namespace BeHeroes.DigitalTwins.Core.State
+namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
     /// Represents a tracker for the state of an entity in a digital twin system.

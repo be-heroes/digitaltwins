@@ -1,5 +1,5 @@
 using BeHeroes.CodeOps.Abstractions.Identity.Did;
-using BeHeroes.DigitalTwins.Core.State;
+using BeHeroes.DigitalTwins.Core.Synchronization;
 
 namespace BeHeroes.DigitalTwins.Core.Replicas
 {

@@ -1,4 +1,4 @@
-namespace BeHeroes.DigitalTwins.Core.State
+namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
     /// Represents a state machine that tracks the current state, shadow state, and backup state.

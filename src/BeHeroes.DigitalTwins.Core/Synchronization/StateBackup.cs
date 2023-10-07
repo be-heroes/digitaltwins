@@ -1,4 +1,4 @@
-namespace BeHeroes.DigitalTwins.Core.State
+namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
     /// Represents the backup shadow state of a digital twin.

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Immutable;
 
-namespace BeHeroes.DigitalTwins.Core.State
+namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
     /// Represents a state tracker that keeps track of a collection of states.
@@ -11,16 +11,15 @@ namespace BeHeroes.DigitalTwins.Core.State
         /// <summary>
         /// An immutable queue of <see cref="IState"/> objects representing the history of the state tracker.
         /// </summary>
-        private readonly IImmutableQueue<IState> _states;
+        private readonly IImmutableQueue<IState> _states = ImmutableQueue<IState>.Empty;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StateTracker"/> class with the specified states and state sequencer.
         /// </summary>
         /// <param name="states">The immutable queue of states to initialize the state tracker with.</param>
         /// <param name="stateSequencer">The state sequencer to use for sequencing states.</param>
-        public StateTracker(IImmutableQueue<IState> states, IStateSequencer stateSequencer)
+        public StateTracker(IStateSequencer stateSequencer)
         {
-            _states = states;
             StateSequencer = stateSequencer;
         }
 

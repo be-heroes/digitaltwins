@@ -1,4 +1,4 @@
-namespace BeHeroes.DigitalTwins.Core.State
+namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
     /// Interface for a state sequencer, which generates a sequence of seeds to be used for state initialization.

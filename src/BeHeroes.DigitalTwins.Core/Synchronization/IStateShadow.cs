@@ -1,4 +1,4 @@
-﻿namespace BeHeroes.DigitalTwins.Core.State
+﻿namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
     /// Represents a shadow state of a digital twin. A shadow state is a copy of the state of a digital twin that is stored in the cloud and is used to synchronize the state of the twin with its corresponding physical device.

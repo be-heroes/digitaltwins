@@ -1,4 +1,4 @@
-namespace BeHeroes.DigitalTwins.Core.State
+namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
     /// A class that generates a sequence of seeds for use in state management.
