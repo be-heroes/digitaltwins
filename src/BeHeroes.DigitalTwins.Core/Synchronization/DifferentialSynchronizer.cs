@@ -64,7 +64,7 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         }
 
         /// <summary>
-        /// Applies the specified differential to the differentials queue and initialies a state transition.
+        /// Applies the specified differential to the differentials synchronizer.
         /// </summary>
         /// <param name="differential">The differential to apply.</param>
         public abstract ValueTask ApplyDifferential(IDifferential differential);
