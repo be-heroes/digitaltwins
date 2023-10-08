@@ -9,8 +9,8 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
     public interface IDifferential
     {
         /// <summary>
-        /// Gets the version of the differential.
+        /// Gets / sets the version of the differential.
         /// </summary>
-        BigInteger Version { get; }        
+        BigInteger Version { get; set; }        
     }
 }

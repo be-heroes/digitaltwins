@@ -21,12 +21,12 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// <summary>
         /// The version number of the state.
         /// </summary>
-        protected readonly BigInteger _version;
+        protected BigInteger _version;
 
         /// <summary>
         /// Gets the version of the state.
         /// </summary>
-        public BigInteger Version => _version;
+        public BigInteger Version { get => _version; set => _version = value; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="State"/> class.

@@ -33,9 +33,15 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// <typeparam name="TDiff">The type of differential being synchronized.</typeparam>
         public DifferentialSynchronizer(TDiff current, ISequencer sequencer, IDifferentialQueue? differentialQueue = default!)
         {
-            _shadow = _current = current ?? throw new ArgumentNullException(nameof(current));
+            _current = current ?? throw new ArgumentNullException(nameof(current));
             _sequencer = sequencer ?? throw new ArgumentNullException(nameof(sequencer));
             _differentialQueue = differentialQueue ?? new DifferentialQueue();
+
+            //Assign the next sequence number to the current version.
+            _current.Version = _sequencer.Next();
+
+            //Synchronize the shadow state.
+            _shadow = _current;
         }
 
         /// <summary>

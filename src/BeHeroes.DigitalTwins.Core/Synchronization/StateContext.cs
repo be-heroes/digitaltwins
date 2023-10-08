@@ -21,23 +21,26 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// </summary>
         /// <param name="differential">The differential to apply.</param>
         /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation.</returns>
-        public override ValueTask ApplyDifferential(IDifferential differential)
+        public async override ValueTask ApplyDifferential(IDifferential differential)
         {
-            //Updaet the local diff queue.
+            //Assign the next sequence number to the applied differential.
+            differential.Version = _sequencer.Next();
+
+            //Updaet the local differential queue.
             _differentialQueue = new DifferentialQueue(_differentialQueue.Enqueue(differential));
 
-            //Handle the state transition.
-            _current.Handle(this);
+            //Handle the state transition of the current differential.
+            await _current.Handle(this);
 
-            return ValueTask.CompletedTask;
+            //Synchronize the shadow state from the patched differential.
+            SynchronizeStateShadow();
         }
 
         /// <summary>
         /// Synchronizes the shadow state with the current state by creating a new StateShadow object instance.
         /// </summary>
         private void SynchronizeStateShadow() {            
-            //Update the inherited shadow state field with an appropriate StateShadow object instance derived from the current state.
-            _shadow = new StateShadow(_current.GetData<object>().Result, _current.Version, _current.GetPreviousData<object>().Result) {
+            _shadow = new StateShadow(_current.GetData<object>(), _current.Version, _current.GetPreviousData<object>()) {
                 PeerVersion = _current.Version
             };
         }
