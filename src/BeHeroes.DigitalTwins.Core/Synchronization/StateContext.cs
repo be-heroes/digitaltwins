@@ -26,7 +26,7 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
             //Updaet the local diff queue.
             _differentialQueue = new DifferentialQueue(_differentialQueue.Enqueue(differential));
 
-            //Update the shadow state.
+            //Handle the state transition.
             _current.Handle(this);
 
             return ValueTask.CompletedTask;
