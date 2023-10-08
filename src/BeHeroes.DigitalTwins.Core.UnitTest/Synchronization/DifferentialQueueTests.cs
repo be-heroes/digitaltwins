@@ -11,13 +11,13 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
             // Arrange
             var state1 = new Mock<IState>();
             var state2 = new Mock<IStateShadow>();
-            var stateTracker = new DifferentialQueue(new Mock<ISequencer>().Object);
+            var stateTracker = new DifferentialQueue();
 
             // Act
             var newQueue = stateTracker.Enqueue(state1.Object).Enqueue(state2.Object);
 
             // Assert
-            Assert.Equal(3, newQueue.Count());
+            Assert.Equal(2, newQueue.Count());
             Assert.Equal(state1.Object, newQueue.Peek());
         }
 
@@ -27,14 +27,14 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
             // Arrange
             var state1 = new Mock<IState>();
             var state2 = new Mock<IStateShadow>();
-            var stateTracker = new DifferentialQueue(new Mock<ISequencer>().Object);
+            var stateTracker = new DifferentialQueue();
             var newQueue = stateTracker.Enqueue(state1.Object).Enqueue(state2.Object);
 
             // Act
             var dequeuedQueue = newQueue.Dequeue();
 
             // Assert
-            Assert.Equal(2, dequeuedQueue.Count());
+            Assert.Equal(1, dequeuedQueue.Count());
             Assert.Equal(state2.Object, dequeuedQueue.Peek());
         }
 
@@ -44,7 +44,7 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
             // Arrange
             var state1 = new Mock<IState>();
             var state2 = new Mock<IStateShadow>();
-            var stateTracker = new DifferentialQueue(new Mock<ISequencer>().Object);
+            var stateTracker = new DifferentialQueue();
             var newQueue = stateTracker.Enqueue(state1.Object).Enqueue(state2.Object);
 
             // Act
@@ -60,7 +60,7 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
             // Arrange
             var state1 = new Mock<IState>();
             var state2 = new Mock<IStateShadow>();
-            var stateTracker = new DifferentialQueue(new Mock<ISequencer>().Object);
+            var stateTracker = new DifferentialQueue();
             var newQueue = stateTracker.Enqueue(state1.Object).Enqueue(state2.Object);
 
             // Act

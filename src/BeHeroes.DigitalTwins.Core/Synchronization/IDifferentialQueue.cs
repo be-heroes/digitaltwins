@@ -8,10 +8,5 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
     /// </summary>
     public interface IDifferentialQueue : IImmutableQueue<IDifferential>
     {
-        /// <summary>
-        /// Returns a sequencer that can be used to generate sequence numbers for differential updates.
-        /// </summary>
-        /// <returns>A sequencer that can be used to generate sequence numbers for differential updates.</returns>
-        ISequencer GetSequencer();
     }
 }

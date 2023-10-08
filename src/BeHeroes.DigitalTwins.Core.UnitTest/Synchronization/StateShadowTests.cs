@@ -14,9 +14,10 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
             var peerVersion = 2ul;
 
             // Act
-            var stateShadow = new StateShadow(data, version, previousData);
-
-            stateShadow.PeerVersion = peerVersion;
+            var stateShadow = new StateShadow(data, version, previousData)
+            {
+                PeerVersion = peerVersion
+            };
 
             // Assert
             Assert.NotNull(stateShadow);

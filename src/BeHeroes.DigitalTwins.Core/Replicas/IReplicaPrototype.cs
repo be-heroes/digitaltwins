@@ -12,9 +12,9 @@ namespace BeHeroes.DigitalTwins.Core.Replicas
         /// <summary>
         /// Creates a new replica instance with the specified state machine and decentralized identifier.
         /// </summary>
-        /// <param name="stateMachine">The state machine to use for the replica.</param>
+        /// <param name="context">The context to use for the replica.</param>
         /// <param name="identifier">The decentralized identifier for the replica.</param>
         /// <returns>A <see cref="ValueTask{T}"/> representing the asynchronous operation, containing the new replica instance.</returns>
-        ValueTask<T> Create(IStateMachine stateMachine, DecentralizedIdentifier identifier);
+        ValueTask<T> Create(IStateContext context, DecentralizedIdentifier identifier);
     }
 }

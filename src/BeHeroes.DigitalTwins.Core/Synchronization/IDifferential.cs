@@ -1,4 +1,6 @@
-﻿namespace BeHeroes.DigitalTwins.Core.Synchronization
+﻿using System.Numerics;
+
+namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     //TODO: Migrate to BeHeroes.CodeOps.Abstractions package in Synchronization namespace
     /// <summary>
@@ -9,6 +11,6 @@
         /// <summary>
         /// Gets the version of the differential.
         /// </summary>
-        ulong Version { get; }        
+        BigInteger Version { get; }        
     }
 }

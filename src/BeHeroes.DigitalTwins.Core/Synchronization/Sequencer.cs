@@ -1,43 +1,41 @@
+using System.Numerics;
+
 namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     //TODO: Migrate to BeHeroes.CodeOps.Abstractions package in Numerics namespace
     /// <summary>
-    /// The sequencer is responsible for generating and tracking sequence numbers used for state synchronization.
+    /// Abstract base class for implementing a sequencer that generates unique sequential values.
     /// </summary>
-    public sealed class Sequencer : ISequencer
+    public abstract class Sequencer : ISequencer
     {
         /// <summary>
-        /// The current value of the sequencer.
+        /// The current value T used by the sequencer.
         /// </summary>
-        private long? _current = default!;
+        protected BigInteger? _current = default!;
 
         /// <summary>
-        /// The next value to be used by the sequencer.
+        /// The next value T to be used by the sequencer.
         /// </summary>
-        private long _next = 1;
+        protected BigInteger _next = default!;
 
         /// <summary>
-        /// Gets the current value from the sequencer.
+        /// Gets the current value T from the sequencer.
         /// </summary>
         /// <returns>The current seed value.</returns>
-        public long? Current() => _current;
+        public BigInteger? Current() => _current;
 
         /// <summary>
-        /// Gets the next value from the sequencer.
+        /// Gets the next value T from the sequencer.
         /// </summary>
         /// <returns>The new seed value.</returns>
-        public long Next() { 
-            _current = _next;
-
-            return _next++;
-        }
+        public abstract BigInteger Next();
 
         /// <summary>
         /// Resets the sequencer.
         /// </summary>
         public void Reset() {
-            _current = null;
-            _next = 1;
+            _current = default!;
+            _next = default!;
         }
     }
 }

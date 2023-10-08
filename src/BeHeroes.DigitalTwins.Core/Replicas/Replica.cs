@@ -11,9 +11,9 @@ namespace BeHeroes.DigitalTwins.Core.Replicas
     public abstract class Replica : ValueObject, IDisposable, IAsyncDisposable, IReplica
     {
         /// <summary>
-        /// The state machine used by the replica.
+        /// The context used to track the state of the replica.
         /// </summary>
-        protected readonly IStateMachine _stateMachine;
+        protected readonly IStateContext _context;
 
         /// <summary>
         /// The decentralized identifier of the replica.
@@ -43,9 +43,9 @@ namespace BeHeroes.DigitalTwins.Core.Replicas
         /// <summary>
         /// Initializes a new instance of the <see cref="Replica"/> class.
         /// </summary>
-        protected Replica(IStateMachine stateMachine, DecentralizedIdentifier identifier)
+        protected Replica(IStateContext context, DecentralizedIdentifier identifier)
         {
-            _stateMachine = stateMachine;
+            _context = context;
             _identifier = identifier;
         }
         

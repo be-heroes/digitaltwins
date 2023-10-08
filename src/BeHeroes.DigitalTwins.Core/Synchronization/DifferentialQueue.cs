@@ -5,86 +5,64 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     //TODO: Migrate to BeHeroes.CodeOps.Abstractions package in Synchronization namespace
     /// <summary>
-    /// Represents a differential queue that tracks unconfirmed changes to a objects state.
+    /// Represents a differential queue that tracks differential changes in a given context.
     /// </summary>
     public sealed class DifferentialQueue : IDifferentialQueue
     {
         /// <summary>
-        /// An immutable queue of unconfirmed <see cref="IDifferential"/> instances to be applied to a state object.
+        /// An immutable queue of <see cref="IDifferential"/> instances to be applied in a given context.
         /// </summary>
-        private readonly IImmutableQueue<IDifferential> _unconfirmedEdits;
-                
-        /// <summary>
-        /// The sequencer used to generate sequence numbers for differential updates.
-        /// </summary>
-        private readonly ISequencer _sequencer = default!;
+        private readonly IImmutableQueue<IDifferential> _queue = default!;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DifferentialQueue"/> class.
         /// </summary>
-        /// <param name="sequencer">The sequencer to use for generating sequence numbers.</param>
-        public DifferentialQueue(ISequencer? sequencer = default!, IImmutableQueue<IDifferential>? unconfirmedEdits = default!)
+        /// <param name="queue">The immutable queue of differentials to initialize the queue with.</param>
+        public DifferentialQueue(IImmutableQueue<IDifferential>? queue = default!)
         {
-            _sequencer = sequencer ?? new Sequencer();
-            _unconfirmedEdits = unconfirmedEdits ?? ImmutableQueue<IDifferential>.Empty;
+            _queue = queue ?? ImmutableQueue<IDifferential>.Empty;
         }
 
         /// <summary>
         /// Gets a value indicating whether the differential queue is empty.
         /// </summary>
-        public bool IsEmpty => _unconfirmedEdits.Count() == 0;
+        public bool IsEmpty => _queue.Count() == 0;
 
-        /// TODO: Check to see if dequeue operation should update sequencer
         /// <summary>
         /// Removes and returns the immutable queue at the beginning of the differential queue.
         /// </summary>
         /// <returns>The immutable queue at the beginning of the differential queue.</returns>
-        public IImmutableQueue<IDifferential> Dequeue() => _unconfirmedEdits.Dequeue();
+        public IImmutableQueue<IDifferential> Dequeue() => _queue.Dequeue();
         
-        /// TODO: Check to see if enqueue operation should update sequencer
         /// <summary>
         /// Adds an <see cref="IDifferential"/> to the end of the queue.
         /// </summary>
         /// <param name="state">The <see cref="IDifferential"/> to add to the queue.</param>
         /// <returns>A new <see cref="IImmutableQueue{T}"/> with the added <see cref="IDifferential"/>.</returns>
-        public IImmutableQueue<IDifferential> Enqueue(IDifferential state) => _unconfirmedEdits.Enqueue(state);
+        public IImmutableQueue<IDifferential> Enqueue(IDifferential state) => _queue.Enqueue(state);
 
         /// <summary>
         /// Returns the next differential edit in the queue without removing it.
         /// </summary>
         /// <returns>The next differential edit in the queue.</returns>
-        public IDifferential Peek() => !IsEmpty ? _unconfirmedEdits.Peek() : default!;
+        public IDifferential Peek() => !IsEmpty ? _queue.Peek() : default!;
 
         /// <summary>
-        /// Returns an enumerator that iterates through the unconfirmed edits in the differential queue.
+        /// Returns an enumerator that iterates through the differentials in the differential queue.
         /// </summary>
         /// <returns>An enumerator that can be used to iterate through the unconfirmed edits in the differential queue.</returns>
-        public IEnumerator<IDifferential> GetEnumerator() => _unconfirmedEdits.GetEnumerator();
+        public IEnumerator<IDifferential> GetEnumerator() => _queue.GetEnumerator();
 
         /// <summary>
-        /// Removes all differentials from the queue and resets the sequencer.
+        /// Removes all differentials from the queue.
         /// </summary>
         /// <returns>An empty immutable queue of differentials.</returns>
-        public IImmutableQueue<IDifferential> Clear() 
-        {
-             _sequencer.Reset();
-             
-             return _unconfirmedEdits.Clear();
-        }
+        public IImmutableQueue<IDifferential> Clear() => _queue.Clear();
 
         /// <summary>
-        /// Returns an enumerator that iterates through the unconfirmed edits.
+        /// Returns an enumerator that iterates through the differentials in the differential queue.
         /// </summary>
-        /// <returns>An enumerator that iterates through the unconfirmed edits.</returns>
+        /// <returns>An enumerator that iterates through the differentials in the differential queue.</returns>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-        /// <summary>
-        /// Returns a <see cref="ValueTask"/> that represents the asynchronous operation of getting the sequencer.
-        /// </summary>
-        /// <returns>A <see cref="ValueTask"/> that represents the asynchronous operation of getting the sequencer.</returns>
-        public ISequencer GetSequencer()
-        {
-            return _sequencer;
-        }
     }
 }

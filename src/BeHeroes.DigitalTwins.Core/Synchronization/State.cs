@@ -1,4 +1,6 @@
 
+using System.Numerics;
+
 namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
@@ -19,12 +21,12 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// <summary>
         /// The version number of the state.
         /// </summary>
-        private readonly ulong _version;
+        private readonly BigInteger _version;
 
         /// <summary>
         /// Gets the version of the state.
         /// </summary>
-        public ulong Version => _version;
+        public BigInteger Version => _version;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="State"/> class.
@@ -32,7 +34,7 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// <param name="data">The data object to be stored in the state.</param>
         /// <param name="version">The version number of the state.</param>
         /// <param name="previousData">The previous data object stored in the state, if any.</param>
-        public State(object data, ulong version, object? previousData = default)
+        public State(object data, BigInteger version, object? previousData = default)
         {
             _version = version;
             _data = data;

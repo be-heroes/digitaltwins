@@ -2,17 +2,16 @@
 namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
-    /// Represents a state machine that synchronizes differential updates of a state.
+    /// Represents a context for synchronizing the state of a digital twin.
     /// </summary>
-    public class StateMachine : DifferentialSynchronizer<IState>, IStateMachine
+    public class StateContext : DifferentialSynchronizer<IState>, IStateContext
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StateMachine"/> class with the specified current state, shadow state, and differential queue.
+        /// Initializes a new instance of the <see cref="StateContext"/> class with the specified current state and differential queue.
         /// </summary>
         /// <param name="current">The current state.</param>
-        /// <param name="shadow">The shadow state.</param>
         /// <param name="differentialQueue">The differential queue.</param>
-        public StateMachine(IState current, IDifferentialQueue? differentialQueue) : base(current, differentialQueue)
+        public StateContext(IState current, IDifferentialQueue? differentialQueue) : base(current, differentialQueue)
         {
             _shadow = new StateShadow(current.GetData(), current.Version, current.GetPreviousData()) {
                 PeerVersion = current.Version
@@ -20,7 +19,7 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         }
 
         /// <summary>
-        /// Applies the given differential to the state machine.
+        /// Applies the given differential to the current state.
         /// </summary>
         /// <param name="differential">The differential to apply.</param>
         /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation.</returns>

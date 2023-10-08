@@ -1,6 +1,4 @@
-﻿using BeHeroes.CodeOps.Abstractions.Data;
-
-namespace BeHeroes.DigitalTwins.Core.Synchronization
+﻿namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
     /// Represents the state of a replica.
