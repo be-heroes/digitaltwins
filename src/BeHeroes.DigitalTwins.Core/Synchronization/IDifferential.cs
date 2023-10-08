@@ -4,7 +4,7 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     //TODO: Migrate to BeHeroes.CodeOps.Abstractions package in Synchronization namespace
     /// <summary>
-    /// Represents an object that can calculate the difference between two versions.
+    /// Represents an IDifferential that can be used for differential synchronization.
     /// </summary>
     public interface IDifferential
     {

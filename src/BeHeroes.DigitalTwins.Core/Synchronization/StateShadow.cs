@@ -3,7 +3,7 @@ using System.Numerics;
 namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
-    /// Represents the shadow state of a replica.
+    /// Represents a shadow of a state object, which is used to track changes to the state on a peer.
     /// </summary>
     public sealed class StateShadow : State, IStateShadow
     {

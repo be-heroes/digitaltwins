@@ -8,8 +8,8 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
         public void CanBeCreated()
         {
             // Arrange
-            var data = new List<KeyValuePair<string, object>> { new KeyValuePair<string, object>("key", "value") };
-            var previousData = new List<KeyValuePair<string, object>> { new KeyValuePair<string, object>("key", "previousValue") };
+            var data = new List<KeyValuePair<string, object>> { new("key", "value") };
+            var previousData = new List<KeyValuePair<string, object>> { new("key", "previousValue") };
             var version = 1ul;
 
             // Act

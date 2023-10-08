@@ -2,9 +2,9 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     //TODO: Migrate to BeHeroes.CodeOps.Abstractions package in Synchronization namespace
     /// <summary>
-    /// Represents a differential synchronizer that synchronizes changes to a given differential T.
+    /// Represents a differential synchronizer that synchronizes changes to a given differential.
     /// </summary>
-    /// <typeparam name="TDiff">The type of object being synchronized.</typeparam>
+    /// <typeparam name="TDiff">The type of differential being handle by the synchronizer.</typeparam>
     public abstract class DifferentialSynchronizer<TDiff> : IDifferentialSynchronizer<TDiff> where TDiff : class, IDifferential
     {
         /// <summary>
@@ -28,16 +28,17 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         protected TDiff _shadow = default!;
 
         /// <summary>
-        /// Represents a differential synchronizer that synchronizes changes to a given differential T.
+        /// Represents a differential synchronizer that synchronizes changes to a given differential.
         /// </summary>
-        /// <typeparam name="TDiff">The type of differential being synchronized.</typeparam>
+        /// <typeparam name="TDiff">The type of differential being handle by the synchronizer.</typeparam>
         public DifferentialSynchronizer(TDiff current, ISequencer sequencer, IDifferentialQueue? differentialQueue = default!)
         {
+            //Assign the current differential and sequencer.
             _current = current ?? throw new ArgumentNullException(nameof(current));
             _sequencer = sequencer ?? throw new ArgumentNullException(nameof(sequencer));
             _differentialQueue = differentialQueue ?? new DifferentialQueue();
 
-            //Assign the next sequence number to the current version.
+            //Assign the first sequence number (zero) to the current version.
             _current.Version = _sequencer.Next();
 
             //Synchronize the shadow state.
@@ -54,19 +55,18 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         }
 
         /// <summary>
-        /// Gets the differentials from the differential queue as an immutable queue.
+        /// Returns an asynchronous operation that yields an enumerator over the pending differentials in the queue.
         /// </summary>
-        /// <returns>An immutable queue of differentials.</returns>
+        /// <returns>A <see cref="ValueTask{TResult}"/> representing the asynchronous operation that yields an enumerator over the pending differentials in the queue.</returns>
         public ValueTask<IEnumerator<IDifferential>> GetPendingDifferentials()
         {
             return ValueTask.FromResult(_differentialQueue.GetEnumerator());
         }
 
         /// <summary>
-        /// Applies the specified differential to the current differential.
+        /// Applies the specified differential to the current object.
         /// </summary>
         /// <param name="differential">The differential to apply.</param>
-        /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation.</returns>
         public abstract ValueTask ApplyDifferential(IDifferential differential);
     }
 }

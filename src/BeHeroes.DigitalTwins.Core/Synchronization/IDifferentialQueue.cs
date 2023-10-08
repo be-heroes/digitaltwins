@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
-    /// Represents a queue of differentials that can be used to track changes to an object.
+    /// Represents a queue that tracks differential changes.
     /// </summary>
     public interface IDifferentialQueue : IImmutableQueue<IDifferential>
     {

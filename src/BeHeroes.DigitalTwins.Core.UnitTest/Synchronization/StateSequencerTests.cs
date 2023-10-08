@@ -12,7 +12,7 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
 
             // Act            
             var current1 = sequencer.Current();
-            var next1 =  (long)sequencer.Next();
+            var next1 = (long)sequencer.Next();
             var current2 = (long?)sequencer.Current();
 
             // Assert

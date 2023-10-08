@@ -5,12 +5,12 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     //TODO: Migrate to BeHeroes.CodeOps.Abstractions package in Synchronization namespace
     /// <summary>
-    /// Represents a differential queue that tracks differential changes in a given context.
+    /// Represents a differential queue that tracks differential changes.
     /// </summary>
     public sealed class DifferentialQueue : IDifferentialQueue
     {
         /// <summary>
-        /// An immutable queue of <see cref="IDifferential"/> instances to be applied in a given context.
+        /// An immutable queue of <see cref="IDifferential"/> instances.
         /// </summary>
         private readonly IImmutableQueue<IDifferential> _queue = default!;
 
@@ -29,9 +29,9 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         public bool IsEmpty => _queue.Count() == 0;
 
         /// <summary>
-        /// Removes and returns the immutable queue at the beginning of the differential queue.
+        /// Removes the first element in the immutable queue, and returns the new queue.
         /// </summary>
-        /// <returns>The immutable queue at the beginning of the differential queue.</returns>
+        /// <returns>The new immutable queue with the first element removed. This value is never null.</returns>
         public IImmutableQueue<IDifferential> Dequeue() => _queue.Dequeue();
         
         /// <summary>
@@ -42,27 +42,27 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         public IImmutableQueue<IDifferential> Enqueue(IDifferential diff) => _queue.Enqueue(diff);
 
         /// <summary>
-        /// Returns the next differential edit in the queue without removing it.
+        /// Returns the next differential in the queue without removing it.
         /// </summary>
-        /// <returns>The next differential edit in the queue.</returns>
+        /// <returns>The next differential in the queue.</returns>
         public IDifferential Peek() => !IsEmpty ? _queue.Peek() : default!;
 
         /// <summary>
-        /// Returns an enumerator that iterates through the differentials in the differential queue.
+        /// Returns an enumerator that iterates through the differentials in the queue.
         /// </summary>
-        /// <returns>An enumerator that can be used to iterate through the unconfirmed edits in the differential queue.</returns>
+        /// <returns>An enumerator that can be used to iterate through the differentials in the queue.</returns>
         public IEnumerator<IDifferential> GetEnumerator() => _queue.GetEnumerator();
 
         /// <summary>
         /// Removes all differentials from the queue.
         /// </summary>
-        /// <returns>An empty immutable queue of differentials.</returns>
+        /// <returns>An empty immutable queue.</returns>
         public IImmutableQueue<IDifferential> Clear() => _queue.Clear();
 
         /// <summary>
-        /// Returns an enumerator that iterates through the differentials in the differential queue.
+        /// Returns an enumerator that iterates through the differentials in the queue.
         /// </summary>
-        /// <returns>An enumerator that iterates through the differentials in the differential queue.</returns>
+        /// <returns>An enumerator that iterates through the differentials in the queue.</returns>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

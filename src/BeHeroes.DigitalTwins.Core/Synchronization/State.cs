@@ -4,7 +4,7 @@ using System.Numerics;
 namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
-    /// Represents a state object that contains data to be synchronized.
+    /// Represents a state object for a digital twin.
     /// </summary>
     public class State : IState
     {
@@ -42,9 +42,9 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         }
 
         /// <summary>
-        /// Handles the current state of the synchronization process.
+        /// Handles state transitions for a given context.
         /// </summary>
-        /// <param name="context">The context of the current state.</param>
+        /// <param name="context">The context for the state transition.</param>
         public virtual ValueTask Handle(IStateContext context)
         {
             throw new NotImplementedException("Finish this method.");
@@ -53,7 +53,7 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// <summary>
         /// Gets the data stored in this state object.
         /// </summary>
-        /// <returns>A <see cref="ValueTask{T}"/> representing the asynchronous operation, containing the data stored in this state object.</returns>
+        /// <returns>A <see cref="ValueTask{T}"/> representing the asynchronous operation to fetch the data stored in this state object.</returns>
         public ValueTask<TData> GetData<TData>() where TData : class
         {
             if (_data is TData data)
@@ -67,7 +67,7 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// <summary>
         /// Gets the previous data that was stored in this state object.
         /// </summary>
-        /// <returns>A <see cref="ValueTask{T}"/> representing the asynchronous operation. The result of the task contains the previous data that was stored in this state object.</returns>
+        /// <returns>A <see cref="ValueTask{T}"/> representing the asynchronous operation to fetch the previous data that was stored in this state object prior to a state transition.</returns>
         public ValueTask<TData?> GetPreviousData<TData>() where TData : class
         {
             if(_previousData != null && _previousData is not TData)

@@ -3,7 +3,7 @@
 namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
-    /// Represents a shadow state that is used to synchronize data between peers.
+    /// Represents a shadow state of an entity in the digital twin system. A shadow state is a copy of the state of an entity that is kept in sync with the actual state of the entity.
     /// </summary>
     public interface IStateShadow : IState
     {
