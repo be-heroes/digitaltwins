@@ -7,6 +7,9 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
     /// </summary>
     public sealed class StateShadow : State, IStateShadow
     {
+        /// <summary>
+        /// The version of the state on the peer that this shadow represents.
+        /// </summary>
         private BigInteger peerVersion = default!;
 
         /// <summary>

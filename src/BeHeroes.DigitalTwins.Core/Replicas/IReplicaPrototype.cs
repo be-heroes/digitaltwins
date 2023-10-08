@@ -10,11 +10,11 @@ namespace BeHeroes.DigitalTwins.Core.Replicas
     public interface IReplicaPrototype<T> where T : IReplica
     {
         /// <summary>
-        /// Creates a new replica instance with the specified state machine and decentralized identifier.
+        /// Creates a new replica instance with the specified state context and decentralized identifier.
         /// </summary>
-        /// <param name="context">The context to use for the replica.</param>
-        /// <param name="identifier">The decentralized identifier for the replica.</param>
-        /// <returns>A <see cref="ValueTask{T}"/> representing the asynchronous operation, containing the new replica instance.</returns>
+        /// <param name="context">The state context to use for creating the replica.</param>
+        /// <param name="identifier">The decentralized identifier to use for the replica.</param>
+        /// <returns>A <see cref="ValueTask{T}"/> representing the asynchronous operation that returns the created replica instance.</returns>
         ValueTask<T> Create(IStateContext context, DecentralizedIdentifier identifier);
     }
 }

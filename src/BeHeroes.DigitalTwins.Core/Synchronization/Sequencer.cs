@@ -9,23 +9,23 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
     public abstract class Sequencer : ISequencer
     {
         /// <summary>
-        /// The current value T used by the sequencer.
+        /// The current value of the sequencer.
         /// </summary>
         protected BigInteger? _current = default!;
 
         /// <summary>
-        /// The next value T to be used by the sequencer.
+        /// The next value of the sequencer.
         /// </summary>
         protected BigInteger _next = default!;
 
         /// <summary>
-        /// Gets the current value T from the sequencer.
+        /// Gets the current value from the sequencer.
         /// </summary>
         /// <returns>The current seed value.</returns>
         public BigInteger? Current() => _current;
 
         /// <summary>
-        /// Gets the next value T from the sequencer.
+        /// Gets the next value from the sequencer.
         /// </summary>
         /// <returns>The new seed value.</returns>
         public abstract BigInteger Next();

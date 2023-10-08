@@ -11,11 +11,9 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// </summary>
         /// <param name="current">The current state.</param>
         /// <param name="differentialQueue">The differential queue.</param>
-        public StateContext(IState current, IDifferentialQueue? differentialQueue) : base(current, differentialQueue)
+        public StateContext(IState current, IDifferentialQueue? differentialQueue = default!) : base(current, new StateSequencer(), differentialQueue)
         {
-            _shadow = new StateShadow(current.GetData(), current.Version, current.GetPreviousData()) {
-                PeerVersion = current.Version
-            };
+            SynchronizeStateShadow();
         }
 
         /// <summary>
@@ -25,7 +23,23 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation.</returns>
         public override ValueTask ApplyDifferential(IDifferential differential)
         {
-            throw new NotImplementedException();
+            //Updaet the local diff queue.
+            _differentialQueue = new DifferentialQueue(_differentialQueue.Enqueue(differential));
+
+            //Update the shadow state.
+            _current.Handle(this);
+
+            return ValueTask.CompletedTask;
+        }
+
+        /// <summary>
+        /// Synchronizes the shadow state with the current state by creating a new StateShadow object instance.
+        /// </summary>
+        private void SynchronizeStateShadow() {            
+            //Update the inherited shadow state field with an appropriate StateShadow object instance derived from the current state.
+            _shadow = new StateShadow(_current.GetData<object>().Result, _current.Version, _current.GetPreviousData<object>().Result) {
+                PeerVersion = _current.Version
+            };
         }
     }
 }

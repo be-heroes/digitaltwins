@@ -4,24 +4,24 @@ using System.Numerics;
 namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
-    /// Represents the state of a digital twin.
+    /// Represents a state object that contains data to be synchronized.
     /// </summary>
     public class State : IState
     {
         /// <summary>
         /// The data object that is being synchronized.
         /// </summary>
-        private readonly object _data;
+        protected readonly object _data;
 
         /// <summary>
         /// The previous data associated with the state.
         /// </summary>
-        private readonly object? _previousData;
+        protected readonly object? _previousData;
 
         /// <summary>
         /// The version number of the state.
         /// </summary>
-        private readonly BigInteger _version;
+        protected readonly BigInteger _version;
 
         /// <summary>
         /// Gets the version of the state.
@@ -36,27 +36,46 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// <param name="previousData">The previous data object stored in the state, if any.</param>
         public State(object data, BigInteger version, object? previousData = default)
         {
+            _data = data ?? throw new ArgumentNullException(nameof(data));
             _version = version;
-            _data = data;
             _previousData = previousData;
         }
 
         /// <summary>
-        /// Gets the data associated with this state.
+        /// Handles the current state of the synchronization process.
         /// </summary>
-        /// <returns>A <see cref="ValueTask{TResult}"/> representing the asynchronous operation.</returns>
-        public ValueTask<object> GetData()
+        /// <param name="context">The context of the current state.</param>
+        public virtual ValueTask Handle(IStateContext context)
         {
-            return ValueTask.FromResult(_data);
+            throw new NotImplementedException("Finish this method.");
         }
 
         /// <summary>
-        /// Gets the previous data associated with this state.
+        /// Gets the data stored in this state object.
         /// </summary>
-        /// <returns>A <see cref="ValueTask{TResult}"/> representing the asynchronous operation, containing the previous data associated with this state.</returns>
-        public ValueTask<object?> GetPreviousData()
+        /// <returns>A <see cref="ValueTask{T}"/> representing the asynchronous operation, containing the data stored in this state object.</returns>
+        public ValueTask<TData> GetData<TData>() where TData : class
         {
-            return ValueTask.FromResult(_previousData);
+            if (_data is TData data)
+            {
+                return ValueTask.FromResult(data);
+            }
+
+            throw new InvalidCastException($"Cannot cast data of type {_data.GetType().Name} to type {typeof(TData).Name}.");
+        }
+
+        /// <summary>
+        /// Gets the previous data that was stored in this state object.
+        /// </summary>
+        /// <returns>A <see cref="ValueTask{T}"/> representing the asynchronous operation. The result of the task contains the previous data that was stored in this state object.</returns>
+        public ValueTask<TData?> GetPreviousData<TData>() where TData : class
+        {
+            if(_previousData != null && _previousData is not TData)
+            {
+                throw new InvalidCastException($"Cannot cast data of type {_previousData.GetType().Name} to type {typeof(TData).Name}.");
+            }
+
+            return ValueTask.FromResult(_previousData as TData);
         }
     }
 }

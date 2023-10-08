@@ -37,9 +37,9 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// <summary>
         /// Adds an <see cref="IDifferential"/> to the end of the queue.
         /// </summary>
-        /// <param name="state">The <see cref="IDifferential"/> to add to the queue.</param>
+        /// <param name="diff">The <see cref="IDifferential"/> to add to the queue.</param>
         /// <returns>A new <see cref="IImmutableQueue{T}"/> with the added <see cref="IDifferential"/>.</returns>
-        public IImmutableQueue<IDifferential> Enqueue(IDifferential state) => _queue.Enqueue(state);
+        public IImmutableQueue<IDifferential> Enqueue(IDifferential diff) => _queue.Enqueue(diff);
 
         /// <summary>
         /// Returns the next differential edit in the queue without removing it.

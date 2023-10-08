@@ -17,9 +17,9 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
 
             // Assert
             Assert.NotNull(state);
-            Assert.Equal(data, state.GetData().Result);
-            Assert.NotNull(state.GetPreviousData().Result);
-            Assert.Equal(previousData, state.GetPreviousData().Result);
+            Assert.Equal(data, state.GetData<object>().Result);
+            Assert.NotNull(state.GetPreviousData<object>().Result);
+            Assert.Equal(previousData, state.GetPreviousData<object>().Result);
             Assert.Equal(version, state.Version);
         }
     }

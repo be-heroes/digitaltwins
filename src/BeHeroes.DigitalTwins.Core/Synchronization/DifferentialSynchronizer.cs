@@ -4,8 +4,8 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
     /// <summary>
     /// Represents a differential synchronizer that synchronizes changes to a given differential T.
     /// </summary>
-    /// <typeparam name="T">The type of object being synchronized.</typeparam>
-    public abstract class DifferentialSynchronizer<T> : IDifferentialSynchronizer<T> where T : class, IDifferential
+    /// <typeparam name="TDiff">The type of object being synchronized.</typeparam>
+    public abstract class DifferentialSynchronizer<TDiff> : IDifferentialSynchronizer<TDiff> where TDiff : class, IDifferential
     {
         /// <summary>
         /// The queue used to store differential updates to be synchronized.
@@ -20,28 +20,29 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// <summary>
         /// The current differential being synchronized.
         /// </summary>
-        protected T _current = default!;
+        protected TDiff _current = default!;
 
         /// <summary>
         /// The shadow copy of the current differential being synchronized.
         /// </summary>
-        protected T _shadow = default!;
+        protected TDiff _shadow = default!;
 
         /// <summary>
         /// Represents a differential synchronizer that synchronizes changes to a given differential T.
         /// </summary>
-        /// <typeparam name="T">The type of differential being synchronized.</typeparam>
-        public DifferentialSynchronizer(T current, IDifferentialQueue? differentialQueue = default!, ISequencer? sequencer = default!)
+        /// <typeparam name="TDiff">The type of differential being synchronized.</typeparam>
+        public DifferentialSynchronizer(TDiff current, ISequencer sequencer, IDifferentialQueue? differentialQueue = default!)
         {
-            _shadow = _current = current;
-            _differentialQueue = differentialQueue;
+            _shadow = _current = current ?? throw new ArgumentNullException(nameof(current));
+            _sequencer = sequencer ?? throw new ArgumentNullException(nameof(sequencer));
+            _differentialQueue = differentialQueue ?? new DifferentialQueue();
         }
 
         /// <summary>
         /// Gets the current differential of the synchronizer.
         /// </summary>
-        /// <returns>A <see cref="ValueTask{T}"/> representing the asynchronous operation.</returns>
-        public ValueTask<T> GetCurrentDifferential()
+        /// <returns>A <see cref="ValueTask{TDiff}"/> representing the asynchronous operation.</returns>
+        public ValueTask<TDiff> GetCurrentDifferential()
         {
             return ValueTask.FromResult(_current);
         }
