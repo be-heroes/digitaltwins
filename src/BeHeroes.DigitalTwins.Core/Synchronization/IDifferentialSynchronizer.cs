@@ -20,7 +20,7 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         ValueTask<IEnumerator<IDifferential>> GetPendingDifferentials();
 
         /// <summary>
-        /// Applies the specified differential to the differentials synchronizer.
+        /// Applies the specified differential to the differential synchronizer.
         /// </summary>
         /// <param name="differential">The differential to apply.</param>
         /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation.</returns>
