@@ -1,18 +1,20 @@
-﻿namespace BeHeroes.DigitalTwins.Core.Synchronization
+﻿using BeHeroes.CodeOps.Abstractions.Data;
+
+namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
-    /// Represents the state of a digital twin.
+    /// Represents the state of a replica.
     /// </summary>
-    public interface IState : IStateDifferential
+    public interface IState : IDifferential
     {
         /// <summary>
-        /// Gets or sets the data of the digital twin.
+        /// Gets the data of the state object.
         /// </summary>
-        object Data { get; init; }
+        ValueTask<object> GetData();
 
         /// <summary>
-        /// Gets the previous data of the digital twin.
+        /// Gets the data of the state object before the last state machine transition.
         /// </summary>
-        object? PreviousData { get; }
+        ValueTask<object?> GetPreviousData();
     }
 }

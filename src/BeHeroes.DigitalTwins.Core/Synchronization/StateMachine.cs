@@ -1,43 +1,32 @@
+﻿
 namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
-    /// Represents a state machine that tracks the current state, shadow state, and backup state.
+    /// Represents a state machine that synchronizes differential updates of a state.
     /// </summary>
-    public sealed class StateMachine : IStateMachine
+    public class StateMachine : DifferentialSynchronizer<IState>, IStateMachine
     {
         /// <summary>
-        /// Gets the state tracker for the state machine.
+        /// Initializes a new instance of the <see cref="StateMachine"/> class with the specified current state, shadow state, and differential queue.
         /// </summary>
-        public IStateTracker StateTracker { get; }
-
-        /// <summary>
-        /// Gets the current state of the state machine.
-        /// </summary>
-        public IState State { get; }
-
-        /// <summary>
-        /// Gets the shadow of the current state.
-        /// </summary>
-        public IStateShadow StateShadow { get;}
-
-        /// <summary>
-        /// Gets the state backup object associated with this state machine.
-        /// </summary>
-        public IStateBackup StateBackup { get;}
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StateMachine"/> class with the specified state tracker, state, state shadow, and state backup.
-        /// </summary>
-        /// <param name="stateTracker">The state tracker to use.</param>
-        /// <param name="state">The initial state of the state machine.</param>
-        /// <param name="stateShadow">The state shadow to use.</param>
-        /// <param name="stateBackup">The state backup to use.</param>
-        public StateMachine(IStateTracker stateTracker, IState state, IStateShadow stateShadow, IStateBackup stateBackup)
+        /// <param name="current">The current state.</param>
+        /// <param name="shadow">The shadow state.</param>
+        /// <param name="differentialQueue">The differential queue.</param>
+        public StateMachine(IState current, IDifferentialQueue? differentialQueue) : base(current, differentialQueue)
         {
-            StateTracker = stateTracker;
-            State = state;
-            StateShadow = stateShadow;
-            StateBackup = stateBackup;
+            _shadow = new StateShadow(current.GetData(), current.Version, current.GetPreviousData()) {
+                PeerVersion = current.Version
+            };
+        }
+
+        /// <summary>
+        /// Applies the given differential to the state machine.
+        /// </summary>
+        /// <param name="differential">The differential to apply.</param>
+        /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation.</returns>
+        public override ValueTask ApplyDifferential(IDifferential differential)
+        {
+            throw new NotImplementedException();
         }
     }
 }

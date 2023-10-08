@@ -8,6 +8,6 @@
         /// <summary>
         /// Gets or sets the version number of the peer that last updated the shadow state.
         /// </summary>
-        int PeerVersion { get; init; }
+        ulong PeerVersion { get; set; }
     }
 }
