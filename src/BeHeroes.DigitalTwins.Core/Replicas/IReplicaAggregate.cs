@@ -6,7 +6,7 @@ using BeHeroes.CodeOps.Abstractions.Identity.Did;
 namespace BeHeroes.DigitalTwins.Core.Replicas
 {
     /// <summary>
-    /// Represents an aggregate of replicas, which is responsible for handling replica-related commands and events.
+    /// Represents an aggregate of replicas, which is responsible for mediating commands and events to nested replicas.
     /// </summary>
     public interface IReplicaAggregate : IActor, IAggregateRoot, IEventHandler<IReplicaAggregateEvent>, ICommandHandler<IReplicaRequest, IReplicaResponse>
     {

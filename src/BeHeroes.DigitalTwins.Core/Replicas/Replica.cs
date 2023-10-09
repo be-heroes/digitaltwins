@@ -13,7 +13,7 @@ namespace BeHeroes.DigitalTwins.Core.Replicas
         /// <summary>
         /// The context used to track the state of the replica.
         /// </summary>
-        protected readonly IStateContext _context;
+        protected readonly ISynchronizationContext _context;
 
         /// <summary>
         /// The decentralized identifier of the replica.
@@ -43,7 +43,7 @@ namespace BeHeroes.DigitalTwins.Core.Replicas
         /// <summary>
         /// Initializes a new instance of the <see cref="Replica"/> class.
         /// </summary>
-        protected Replica(IStateContext context, DecentralizedIdentifier identifier)
+        protected Replica(ISynchronizationContext context, DecentralizedIdentifier identifier)
         {
             _context = context;
             _identifier = identifier;

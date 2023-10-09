@@ -5,10 +5,13 @@ using BeHeroes.CodeOps.Abstractions.Services;
 namespace BeHeroes.DigitalTwins.Core.Provisioning
 {
     /// <summary>
-    /// Represents a service broker that acts as a system actor and handles provisioning requests and events.
+    /// Represents a service broker that handles provisioning requests and events.
     /// </summary>
     public interface IServiceBroker : IActor, IService, ICommandHandler<IProvisioningRequest, IProvisioningResponse>, IEventHandler<IProvisioningEvent>
     {
+        /// <summary>
+        /// Gets the type of the actor.
+        /// </summary>
         new ActorType ActorType => ActorType.System;
     }
 }

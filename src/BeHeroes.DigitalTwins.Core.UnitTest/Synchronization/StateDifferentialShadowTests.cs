@@ -2,7 +2,7 @@ using BeHeroes.DigitalTwins.Core.Synchronization;
 
 namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
 {
-    public class StateShadowTests
+    public class StateDifferentialShadowTests
     {
         [Fact]
         public void CanBeCreated()
@@ -14,10 +14,7 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
             var peerVersion = 2ul;
 
             // Act
-            var stateShadow = new StateShadow(data, version, previousData)
-            {
-                PeerVersion = peerVersion
-            };
+            var stateShadow = new StateDifferentialShadow(data, version, peerVersion, previousData);
 
             // Assert
             Assert.NotNull(stateShadow);

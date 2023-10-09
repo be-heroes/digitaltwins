@@ -3,7 +3,7 @@
 namespace BeHeroes.DigitalTwins.Core.Provisioning
 {
     /// <summary>
-    /// Represents a request to provision a digital twin.
+    /// Represents a provisioning request.
     /// </summary>
     public interface IProvisioningRequest : ICommand<IProvisioningResponse>
     {

@@ -2,18 +2,18 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     //TODO: Migrate to BeHeroes.CodeOps.Abstractions package in Synchronization namespace
     /// <summary>
-    /// Represents a differential synchronizer that synchronizes changes to a given differential.
+    /// Represents a differential synchronizer that synchronizes changes for a given differential.
     /// </summary>
-    /// <typeparam name="TDiff">The type of differential being handle by the synchronizer.</typeparam>
+    /// <typeparam name="TDiff">The type of differential element being handle by the synchronizer.</typeparam>
     public abstract class DifferentialSynchronizer<TDiff> : IDifferentialSynchronizer<TDiff> where TDiff : class, IDifferential
     {
         /// <summary>
-        /// The queue used to store differential updates to be synchronized.
+        /// The queue used to store differential changes to be synchronized.
         /// </summary>
         protected IDifferentialQueue _differentialQueue = default!;
                 
         /// <summary>
-        /// The sequencer used to generate sequence numbers for differential updates.
+        /// The sequencer used to generate numbers to track differential changes.
         /// </summary>
         protected readonly ISequencer _sequencer = default!;
 
@@ -34,15 +34,9 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         public DifferentialSynchronizer(TDiff current, ISequencer sequencer, IDifferentialQueue? differentialQueue = default!)
         {
             //Assign the current differential and sequencer.
-            _current = current ?? throw new ArgumentNullException(nameof(current));
+            _shadow = _current = current ?? throw new ArgumentNullException(nameof(current));
             _sequencer = sequencer ?? throw new ArgumentNullException(nameof(sequencer));
             _differentialQueue = differentialQueue ?? new DifferentialQueue();
-
-            //Assign the first sequence number (zero) to the current version.
-            _current.Version = _sequencer.Next();
-
-            //Synchronize the shadow state.
-            _shadow = _current;
         }
 
         /// <summary>

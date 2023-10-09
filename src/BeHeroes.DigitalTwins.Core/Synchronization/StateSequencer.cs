@@ -5,7 +5,7 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
     /// <summary>
     /// The StateSequencer is responsible for generating and tracking sequence numbers used for state synchronization.
     /// </summary>
-    public sealed class StateSequencer : Sequencer
+    public sealed class StateSequencer : Sequencer, IStateSequencer
     {
         /// <summary>
         /// Gets the next value from the sequencer.

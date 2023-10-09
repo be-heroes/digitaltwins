@@ -2,7 +2,7 @@ using BeHeroes.DigitalTwins.Core.Synchronization;
 
 namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
 {
-    public class StateTests
+    public class StateDifferentialTests
     {
         [Fact]
         public void CanBeCreated()
@@ -13,14 +13,14 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
             var version = 1ul;
 
             // Act
-            var state = new State(data, version, previousData);
+            var diff = new StateDifferential(data, version, previousData);
 
             // Assert
-            Assert.NotNull(state);
-            Assert.Equal(data, state.GetData<object>().Result);
-            Assert.NotNull(state.GetPreviousData<object>().Result);
-            Assert.Equal(previousData, state.GetPreviousData<object>().Result);
-            Assert.Equal(version, state.Version);
+            Assert.NotNull(diff);
+            Assert.Equal(data, diff.GetData<object>().Result);
+            Assert.NotNull(diff.GetPreviousData<object>().Result);
+            Assert.Equal(previousData, diff.GetPreviousData<object>().Result);
+            Assert.Equal(version, diff.Version);
         }
     }
 }

@@ -3,7 +3,7 @@
 namespace BeHeroes.DigitalTwins.Core.Provisioning
 {
     /// <summary>
-    /// Represents a response from a provisioning operation.
+    /// Represents a provisioning response.
     /// </summary>
     public interface IProvisioningResponse
     {

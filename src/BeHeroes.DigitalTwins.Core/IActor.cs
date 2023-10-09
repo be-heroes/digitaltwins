@@ -4,7 +4,7 @@ using BeHeroes.CodeOps.Abstractions.Identity.Did;
 namespace BeHeroes.DigitalTwins.Core
 {
     /// <summary>
-    /// Represents an actor in the digital twin system.
+    /// Represents an actor in the system.
     /// </summary>
     public interface IActor : IDisposable, IAsyncDisposable
     {

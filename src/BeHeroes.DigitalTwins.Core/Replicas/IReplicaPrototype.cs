@@ -15,6 +15,6 @@ namespace BeHeroes.DigitalTwins.Core.Replicas
         /// <param name="context">The state context to use for creating the replica.</param>
         /// <param name="identifier">The decentralized identifier to use for the replica.</param>
         /// <returns>A <see cref="ValueTask{T}"/> representing the asynchronous operation that returns the created replica instance.</returns>
-        ValueTask<T> Create(IStateContext context, DecentralizedIdentifier identifier);
+        ValueTask<T> Create(ISynchronizationContext context, DecentralizedIdentifier identifier);
     }
 }

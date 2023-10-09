@@ -13,7 +13,7 @@ namespace BeHeroes.DigitalTwins.Core
         public static ActorStatus Available = new ActorStatus(1, nameof(Available).ToLowerInvariant());
 
         /// <summary>
-        /// Represents an actor that is currently unavailable.
+        /// Represents an unavailable actor status.
         /// </summary>
         public static ActorStatus Unavailable = new ActorStatus(2, nameof(Unavailable).ToLowerInvariant());
 
@@ -23,16 +23,16 @@ namespace BeHeroes.DigitalTwins.Core
         public static ActorStatus Unknown = new ActorStatus(4, nameof(Unknown).ToLowerInvariant());
 
         /// <summary>
-        /// Represents the status of an actor in the digital twin system.
+        /// Protected constructor used by EF Core.
         /// </summary>
         protected ActorStatus()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ActorStatus"/> class with the specified ID and name.
+        /// Initializes a new instance of the <see cref="ActorStatus"/> EntityEnumerator with the specified id and name.
         /// </summary>
-        /// <param name="id">The ID of the actor status.</param>
+        /// <param name="id">The id of the actor status.</param>
         /// <param name="name">The name of the actor status.</param>
         public ActorStatus(int id, string name)
             : base(id, name)
@@ -64,10 +64,10 @@ namespace BeHeroes.DigitalTwins.Core
         }
 
         /// <summary>
-        /// Returns the actor status with the specified ID.
+        /// Returns the actor status with the specified id.
         /// </summary>
-        /// <param name="id">The ID of the actor status to retrieve.</param>
-        /// <returns>The actor status with the specified ID.</returns>
+        /// <param name="id">The id of the actor status to retrieve.</param>
+        /// <returns>The actor status with the specified id.</returns>
         /// <exception cref="ArgumentException">Thrown when no actor status with the specified ID is found.</exception>
         public static ActorStatus From(int id)
         {

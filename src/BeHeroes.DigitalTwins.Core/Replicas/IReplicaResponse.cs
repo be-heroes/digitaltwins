@@ -1,7 +1,7 @@
 namespace BeHeroes.DigitalTwins.Core.Replicas
 {
     /// <summary>
-    /// Represents a response from a replica.
+    /// Represents a replica response.
     /// </summary>
     public interface IReplicaResponse
     {

@@ -4,7 +4,7 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     //TODO: Migrate to BeHeroes.CodeOps.Abstractions package in Numerics namespace
     /// <summary>
-    /// Defines an interface for a sequencer that generates a sequence of incrementing values.
+    /// Defines an interface for a sequencer that generates incrementing values.
     /// </summary>
     public interface ISequencer
     {
