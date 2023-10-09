@@ -11,7 +11,7 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
         {
             // Arrange
             var state1 = new Mock<IStateDifferential>();
-            var state2 = new Mock<IStateDifferentialShadow>();
+            var state2 = new Mock<IStateDifferential>();
             var stateTracker = new DifferentialQueue();
 
             // Act
@@ -27,7 +27,7 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
         {
             // Arrange
             var state1 = new Mock<IStateDifferential>();
-            var state2 = new Mock<IStateDifferentialShadow>();
+            var state2 = new Mock<IStateDifferential>();
             var stateTracker = new DifferentialQueue();
             var newQueue = stateTracker.Enqueue(state1.Object).Enqueue(state2.Object);
 
@@ -44,7 +44,7 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
         {
             // Arrange
             var state1 = new Mock<IStateDifferential>();
-            var state2 = new Mock<IStateDifferentialShadow>();
+            var state2 = new Mock<IStateDifferential>();
             var stateTracker = new DifferentialQueue();
             var newQueue = stateTracker.Enqueue(state1.Object).Enqueue(state2.Object);
 
@@ -60,7 +60,7 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
         {
             // Arrange
             var state1 = new Mock<IStateDifferential>();
-            var state2 = new Mock<IStateDifferentialShadow>();
+            var state2 = new Mock<IStateDifferential>();
             var stateTracker = new DifferentialQueue();
             var newQueue = stateTracker.Enqueue(state1.Object).Enqueue(state2.Object);
 
