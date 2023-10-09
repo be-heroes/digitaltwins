@@ -20,7 +20,7 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// <summary>
         /// The version number of the state differential.
         /// </summary>
-        protected readonly BigInteger _version;
+        protected BigInteger _version;
 
         /// <summary>
         /// Gets the version of the state differential.
@@ -65,10 +65,12 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
                     case IStateDifferentialShadow shadow:
                         _previousData = _data;
                         _data = shadow.GetData<object>();
+                        _version = shadow.PeerVersion;
                         break;
                     case IStateDifferential differential:
                         _previousData = _data;
                         _data = differential.GetData<object>();
+                        _version = differential.Version;
                         break;
                     default:
                         throw new ArgumentException($"The differential type {pendingDifferentials.Current.GetType().Name} is not supported.", nameof(context));
