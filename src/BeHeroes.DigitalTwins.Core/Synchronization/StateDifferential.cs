@@ -10,12 +10,12 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// <summary>
         /// The data object that is being synchronized by the state differential.
         /// </summary>
-        protected readonly object _data;
+        protected object _data;
 
         /// <summary>
         /// The previous data object associated with the state differential.
         /// </summary>
-        protected readonly object? _previousData;
+        protected object? _previousData;
 
         /// <summary>
         /// The version number of the state differential.
@@ -55,14 +55,24 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
             }
 
             // Get the pending differentials to use for the state transition.
-            var unconfirmedDifferentials = await context.GetPendingDifferentials();
+            var pendingDifferentials = await context.GetPendingDifferentials();
 
-            while(unconfirmedDifferentials.MoveNext())
+            while(pendingDifferentials.MoveNext())
             {
-                // Get the current differential in the enumerator.
-                var differential = unconfirmedDifferentials.Current;
-
-                // TODO: Implement state differential transition logic.
+                // Simplistic retarded diff logic for now.
+                switch (pendingDifferentials.Current)
+                {
+                    case IStateDifferentialShadow shadow:
+                        _previousData = _data;
+                        _data = shadow.GetData<object>();
+                        break;
+                    case IStateDifferential differential:
+                        _previousData = _data;
+                        _data = differential.GetData<object>();
+                        break;
+                    default:
+                        throw new ArgumentException($"The differential type {pendingDifferentials.Current.GetType().Name} is not supported.", nameof(context));
+                }
             }
         }
 

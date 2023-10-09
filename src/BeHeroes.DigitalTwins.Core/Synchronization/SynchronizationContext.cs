@@ -20,7 +20,7 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
             }
 
             // Synchronize the shadow state from the current state.
-            SynchronizeStateShadow();
+            SynchronizeShadow();
         }
 
         /// <summary>
@@ -30,12 +30,14 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation.</returns>
         public async override ValueTask ApplyDifferential(IDifferential differential)
         {
-            // Check to see that the differential is stall.
-            if(_differentialQueue.Peek() != null && differential.Version <= _differentialQueue.Peek().Version){
+            // Check to see if the differential is stall.
+            var peekedElement = _differentialQueue.Peek();
+
+            if(peekedElement != null && differential.Version <= peekedElement.Version){
                 throw new ArgumentException("The differential is stall.", nameof(differential));
             }
 
-            // Check to see that the differential is in sequence.
+            // Check to see if the differential is in sequence.
             if(differential.Version <= _sequencer.Current())            
             {
                 throw new ArgumentException("The differential is out of sequence.", nameof(differential));
@@ -52,17 +54,17 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
             // Handle the state transition of the current differential.
             await _current.Handle(this);
 
-            // Synchronize the shadow state from the patched differential.
-            SynchronizeStateShadow();
+            // Synchronize the shadow with the patched differential.
+            SynchronizeShadow();
             
             // Clear the local differential queue.
             _differentialQueue = new DifferentialQueue(_differentialQueue.Clear());
         }
 
         /// <summary>
-        /// Synchronizes the shadow state with the current state by creating a new StateShadow object instance.
+        /// Synchronizes the shadow of the current state differential by creating and assigning a new StateDifferentialShadow instance.
         /// </summary>
-        private void SynchronizeStateShadow() {            
+        private void SynchronizeShadow() {            
             _shadow = new StateDifferentialShadow(_current.GetData<object>(), _current.Version, _current.Version, _current.GetPreviousData<object>());
         }
     }
