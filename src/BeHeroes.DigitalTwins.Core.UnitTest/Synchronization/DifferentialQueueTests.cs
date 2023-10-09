@@ -1,4 +1,5 @@
 using BeHeroes.DigitalTwins.Core.Synchronization;
+using BeHeroes.CodeOps.Abstractions.Synchronization.Differential;
 using Moq;
 
 namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization

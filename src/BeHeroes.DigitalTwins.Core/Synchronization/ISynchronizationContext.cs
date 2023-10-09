@@ -1,4 +1,6 @@
-﻿namespace BeHeroes.DigitalTwins.Core.Synchronization
+﻿using BeHeroes.CodeOps.Abstractions.Synchronization.Differential;
+
+namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>
     /// Represents a synchronization context for a given state differential.

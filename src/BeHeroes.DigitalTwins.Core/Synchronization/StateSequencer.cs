@@ -1,4 +1,5 @@
 using System.Numerics;
+using BeHeroes.CodeOps.Abstractions.Numerics;
 
 namespace BeHeroes.DigitalTwins.Core.Synchronization
 {

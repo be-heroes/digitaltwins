@@ -1,4 +1,5 @@
-﻿
+﻿using BeHeroes.CodeOps.Abstractions.Synchronization.Differential;
+
 namespace BeHeroes.DigitalTwins.Core.Synchronization
 {
     /// <summary>

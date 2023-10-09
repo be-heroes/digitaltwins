@@ -1,4 +1,3 @@
-
 using System.Numerics;
 
 namespace BeHeroes.DigitalTwins.Core.Synchronization
