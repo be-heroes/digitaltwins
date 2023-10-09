@@ -15,12 +15,7 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         public SynchronizationContext(IStateDifferential current, IDifferentialQueue? differentialQueue = default!) : base(current, new StateSequencer(), differentialQueue)
         {
             // Advance the sequencer to match the current differential version.
-            while(_sequencer.Next() < _current.Version) { 
-                // Do nothing.
-            }
-
-            // Synchronize the shadow state from the current state.
-            SynchronizeShadow();
+            _sequencer.Advance(_current.Version);
         }
 
         /// <summary>
@@ -31,9 +26,9 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         public async override ValueTask ApplyDifferential(IDifferential differential)
         {
             // Check to see if the differential is stall.
-            var peekedElement = _differentialQueue.Peek();
+            var nextElement = _differentialQueue.Peek();
 
-            if(peekedElement != null && differential.Version <= peekedElement.Version){
+            if(nextElement != null && differential.Version <= nextElement.Version){
                 throw new ArgumentException("The differential is stall.", nameof(differential));
             }
 
@@ -43,29 +38,20 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
                 throw new ArgumentException("The differential is out of sequence.", nameof(differential));
             }
 
-            // Advance the sequencer to match the applied differential version.
-            while(_sequencer.Current() < differential.Version) { 
-                _sequencer.Next();
-            }
-
             // Update the local differential queue.
             _differentialQueue = new DifferentialQueue(_differentialQueue.Enqueue(differential));
 
             // Handle the state transition of the current differential.
             await _current.Handle(this);
 
-            // Synchronize the shadow with the patched differential.
-            SynchronizeShadow();
+            // Advance the sequencer to match the current differential version.
+            _sequencer.Advance(_current.Version);
+
+            // Synchronize the shadow with the current differential.
+            _shadow = _current;
             
             // Clear the local differential queue.
             _differentialQueue = new DifferentialQueue(_differentialQueue.Clear());
-        }
-
-        /// <summary>
-        /// Synchronizes the shadow of the current state differential by creating and assigning a new StateDifferentialShadow instance.
-        /// </summary>
-        private void SynchronizeShadow() {            
-            _shadow = new StateDifferentialShadow(_current.GetData<object>(), _current.Version, _current.Version, _current.GetPreviousData<object>());
         }
     }
 }

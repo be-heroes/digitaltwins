@@ -14,7 +14,7 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// <returns>The new seed value.</returns>
         public override BigInteger Next() { 
             _current = _next;
-
+            
             return _next++;
         }
     }

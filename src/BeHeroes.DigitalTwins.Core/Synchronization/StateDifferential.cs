@@ -47,7 +47,7 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         public virtual async ValueTask Handle(ISynchronizationContext context)
         {
             // Check to see that the context version matches the state differential version.
-            var contextVersion = (await context.GetCurrentDifferential()).Version;
+            var contextVersion = (await context.GetDifferential()).Version;
 
             if(contextVersion != _version)
             {
@@ -55,25 +55,20 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
             }
 
             // Get the pending differentials to use for the state transition.
-            var pendingDifferentials = await context.GetPendingDifferentials();
+            var differentialEdits = await context.GetDifferentialEdits();
 
-            while(pendingDifferentials.MoveNext())
+            while(differentialEdits.MoveNext())
             {
                 // Simplistic retarded diff logic for now.
-                switch (pendingDifferentials.Current)
+                switch (differentialEdits.Current)
                 {
-                    case IStateDifferentialShadow shadow:
-                        _previousData = _data;
-                        _data = shadow.GetData<object>();
-                        _version = shadow.PeerVersion;
-                        break;
                     case IStateDifferential differential:
                         _previousData = _data;
                         _data = differential.GetData<object>();
                         _version = differential.Version;
                         break;
                     default:
-                        throw new ArgumentException($"The differential type {pendingDifferentials.Current.GetType().Name} is not supported.", nameof(context));
+                        throw new ArgumentException($"The differential type {differentialEdits.Current.GetType().Name} is not supported.", nameof(context));
                 }
             }
         }

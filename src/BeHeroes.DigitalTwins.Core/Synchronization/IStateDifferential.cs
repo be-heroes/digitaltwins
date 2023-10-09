@@ -5,7 +5,7 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
     /// <summary>
     /// Represents a state differential for a digital twin.
     /// </summary>
-    public interface IStateDifferential  : IDifferential 
+    public interface IStateDifferential : IDifferential 
     {
         /// <summary>
         /// Handles state differential transitions for a given context.
