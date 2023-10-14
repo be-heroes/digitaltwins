@@ -33,7 +33,7 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
             // Arrange
             var currentDifferential = new StateDifferential("data", 10);
             var context = new Mock<ISynchronizationContext>();
-
+            
             context.Setup(x => x.GetDifferentialEdits()).Returns(ImmutableQueue<IDifferential>.Empty.AsEnumerable().GetEnumerator());
 
             // Act
