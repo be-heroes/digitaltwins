@@ -46,26 +46,27 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// <param name="context">The synchronization context for the state differential transition.</param>
         public virtual async ValueTask Handle(ISynchronizationContext context)
         {
-            // Check to see that the context version matches the state differential version.
-            var contextVersion = (await context.GetDifferential()).Version;
+            // Check to see that the context has an active version and it matches the state differential version.
+            var contextVersion = context.GetDifferential()?.Version;
 
-            if(contextVersion != _version)
+            if(contextVersion != null && contextVersion != _version)
             {
                 throw new ArgumentException($"The context version ({contextVersion}) does not match the state differential version ({_version}).", nameof(context));
             }
 
             // Get the pending differentials to use for the state transition.
-            var differentialEdits = await context.GetDifferentialEdits();
-
+            var differentialEdits = context.GetDifferentialEdits();
+          
             while(differentialEdits.MoveNext())
             {
-                // Simplistic retarded diff logic for now.
                 switch (differentialEdits.Current)
                 {
                     case IStateDifferential differential:
-                        _previousData = _data;
-                        _data = differential.GetData<object>();
-                        _version = differential.Version;
+                        if(Version < differential.Version){
+                            _previousData = _data;
+                            _data = await differential.GetData<object>();
+                            _version = differential.Version;
+                        }
                         break;
                     default:
                         throw new ArgumentException($"The differential type {differentialEdits.Current.GetType().Name} is not supported.", nameof(context));

@@ -10,20 +10,17 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// <summary>
         /// Initializes a new instance of the <see cref="SynchronizationContext"/> class with the specified current state and differential queue.
         /// </summary>
-        /// <param name="current">The current state.</param>
+        /// <param name="sequencer">The sequencer used in the context.</param>
         /// <param name="differentialQueue">The differential queue.</param>
-        public SynchronizationContext(IStateDifferential current, IDifferentialQueue? differentialQueue = default!) : base(current, new StateSequencer(), differentialQueue)
+        public SynchronizationContext(IStateSequencer? sequencer = default!, IDifferentialQueue? differentialQueue = default!) : base(sequencer ?? new StateSequencer(), differentialQueue)
         {
-            // Advance the sequencer to match the current differential version.
-            _sequencer.Advance(_current.Version);
         }
 
         /// <summary>
         /// Applies the given differential to the current state.
         /// </summary>
         /// <param name="differential">The differential to apply.</param>
-        /// <returns>A <see cref="ValueTask"/> representing the asynchronous operation.</returns>
-        public async override ValueTask ApplyDifferential(IDifferential differential)
+        public async override void ApplyDifferential(IDifferential differential)
         {
             // Check to see if the differential is stall.
             var nextElement = _differentialQueue.Peek();
