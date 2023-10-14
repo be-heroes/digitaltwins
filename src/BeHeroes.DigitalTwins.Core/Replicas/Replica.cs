@@ -8,7 +8,7 @@ namespace BeHeroes.DigitalTwins.Core.Replicas
     /// <summary>
     /// Represents a base class for all replicas in the system.
     /// </summary>
-    public abstract class Replica : ValueObject, IDisposable, IAsyncDisposable, IReplica
+    public abstract class Replica : ValueObject, IReplica
     {
         /// <summary>
         /// The context used to track the state of the replica.

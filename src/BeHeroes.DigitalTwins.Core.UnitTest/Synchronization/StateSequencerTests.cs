@@ -17,9 +17,9 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
 
             // Assert
             Assert.Null(current1);
-            Assert.True(next1 == default!);
+            Assert.True(next1 != default!);
             Assert.NotNull(current2);
-            Assert.True(current2.Value == default!);
+            Assert.True(current2.Value == next1);
         }
 
         [Fact]
@@ -36,9 +36,9 @@ namespace BeHeroes.DigitalTwins.Core.UnitTest.Synchronization
 
             // Assert
             Assert.Null(current1);
-            Assert.True(next1 == default!);
+            Assert.True(next1 != default!);
             Assert.NotNull(current2);
-            Assert.True(current2.Value == default!);
+            Assert.True(current2.Value == next1);
             Assert.True(next2 != default!);
             Assert.True(next1 < next2);
         }

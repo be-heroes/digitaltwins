@@ -13,9 +13,10 @@ namespace BeHeroes.DigitalTwins.Core.Synchronization
         /// </summary>
         /// <returns>The new seed value.</returns>
         public override BigInteger Next() { 
+            _next = (_current.HasValue && _current.Value >= DateTime.UtcNow.Ticks) ? _current.Value + 1 : DateTime.UtcNow.Ticks;
             _current = _next;
-            
-            return _next++;
+
+            return _next;
         }
     }
 }
